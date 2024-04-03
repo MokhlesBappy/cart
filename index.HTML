@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body>
+    <div
+      id="productcontainer"
+      class="grid grid-cols-4 gap-4 mx-auto container mt-5"
+    ></div>
+    <div>
+      <div class="text-center">Cart Data</div>
+      <div
+        id="productcontainercart"
+        class="grid grid-cols-4 gap-4 mx-auto container mt-5"
+      ></div>
+    </div>
+
+    <script>
+      let cartData = []
+
+      const product = [
+        {
+          name: "product tittle 1",
+          image: "220px-Qr-1.PNG",
+          price: "$100",
+          decription:
+            "This is great Product This is demo data Product This is great Product This is demo data Product",
+        },
+        {
+          name: "product 2",
+          image: "220px-Qr-1.PNG",
+          price: "$200",
+          decription:
+            "This is great Product This is demo data Product This is great Product This is demo data Product",
+        },
+        {
+          name: "product 3",
+          image: "220px-Qr-1.PNG",
+          price: "$300",
+          decription:
+            "This is great Product This is demo data Product This is great Product This is demo data Product",
+        },
+        {
+          name: "product 4",
+          image: "220px-Qr-1.PNG",
+          price: "$400",
+          decription:
+            "This is great Product This is demo data Product This is great Product This is demo data Product",
+        },
+      ];
+
+      function removecartbuttonclick(pro) {
+        delete cartData[pro]
+        showcartdata()
+      }
+
+      function showcartdata() {
+        let totalprice = 0
+        let carttempdata = ""
+
+        for (let pro in cartData) {
+          let prodindex = cartData[pro]
+          const sinpro = product[prodindex]
+
+          totalprice += parseInt(sinpro.price)
+
+          carttempdata += `<div class="grid gap-2 place-items-start">
+                
+                <div class="grid gap-2 place-items-start">
+                    <img src="${sinpro.image}" alt="">
+                    <div>
+             <button class="p-2 bg-blue-500 rounded" onclick="removecartbuttonclick(${pro})">remove cart</button>
+              </div>
+                    <div>${sinpro.name}</div>
+                    <div>$${sinpro.price}</div>
+                    <div>${sinpro.decription}</div>
+                </div>
+            </div>`
+        }
+        document.getElementById("productcontainercart").innerHTML =
+          carttempdata
+        // console.log(cartData)
+      }
+
+      function addtocartbutton(items) {
+        cartData.push(items)
+        console.log(cartData)
+        showcartdata()
+      }
+
+      let data = ""
+      for (let pro in product) {
+        const sinpro = product[pro]
+        data += `<div class="grid gap-2 place-items-start">
+                
+            <div class="grid gap-2 place-items-start">
+                <img src="${sinpro.image}" alt="">
+                <div>
+         <button class="p-2 bg-blue-500 rounded" onclick="addtocartbutton">Ad to cart</button>
+          </div>
+                <div>${sinpro.name}</div>
+                <div>$${sinpro.price}</div>
+                <div>${sinpro.decription}</div>
+            </div>
+        </div>`;
+      }
+
+      document.getElementById("productcontainer").innerHTML = data
+    </script>
+  </body>
+</html>
